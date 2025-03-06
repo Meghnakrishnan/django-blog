@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if category_post%}
+<h2>{{cats}} Category</h2><br>
+
+<ul>
+    {% for post in category_post %}
+    
+    <li><a href="{% url 'detail' post.pk  %}">
+        {{ post.title }}</a > - {{post.category}} - {{ post.author.first_name}} {{ post.author.last_name}} - <small><a href="{% url 'update_post' post.pk %}">Edit</a></small> 
+        <small><a href="{% url 'delete_post' post.pk %}">Delete</a></small><br>
+        {{ post.body | slice:":200"|safe }}</li> 
+        {% comment %} slicing added to show only 200 characters from the begining {% endcomment %}
+    
+    {% endfor %}
+    </ul>
+ {% else %}
+    Sorry this page doesnt exist..
+{% endif %}
+
+{% endblock content %}
+
